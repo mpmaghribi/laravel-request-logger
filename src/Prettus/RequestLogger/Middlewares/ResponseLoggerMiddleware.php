@@ -16,16 +16,7 @@ class ResponseLoggerMiddleware
 
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
-    }
-
-    public function terminate(Request $request, Response $response)
-    {
-        // For some reason $request->route() returns null...        
-/*        $currentRoute = Route::getCurrentRoute();
-
-        \Log::debug($currentRoute->getPath(). " ". print_r($currentRoute->getMethods(), true));
-*/
+        $response = $next($request);
 
         if(!$this->excluded($request)) {                    
             $task = new LogTask($request, $response);
@@ -36,6 +27,8 @@ class ResponseLoggerMiddleware
                 $task->handle();
             }
         }
+
+        return $response;
     }
 
     protected function excluded(Request $request) {
