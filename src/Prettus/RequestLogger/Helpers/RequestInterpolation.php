@@ -49,7 +49,7 @@ class RequestInterpolation extends BaseInterpolation {
             "getScheme",
             "getPort",
             "getQueryString",
-            "getUser",
+            "user",
             "referer",
             "getContent"
         ],camel_case($variable));
